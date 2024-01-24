@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "sdkpay-static",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sdkpay/sdkpay-static",
+      "state" : {
+        "revision" : "ab1b452250bef0c07a74cba12a9d4a6b2981af25",
+        "version" : "2.1.1"
+      }
+    }
+  ],
+  "version" : 2
+}
