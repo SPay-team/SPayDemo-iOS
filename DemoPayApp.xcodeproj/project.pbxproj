@@ -394,7 +394,7 @@
 			repositoryURL = "https://github.com/sdkpay/sdkpay-static";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.2;
+				minimumVersion = 2.1.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
