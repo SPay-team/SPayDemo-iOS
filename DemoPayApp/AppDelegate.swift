@@ -18,9 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Метод настройки sdk на старте приложения
         SPay.setup(bnplPlan: true, // Необходимо ли отображение системы оплаты частями.
                    helpers: true, // Необходимо ли отображение подсказок для пользователя, которые помогут оплатить заказ при недостатке средств или при остутствии карты.
+                   needLogs: true, // Необходимо ли писать лог SDK в консоль (работает только в режиме песочницы).
                    helperConfig: SBHelperConfig(sbp: true, creditCard: true, debitCard: true), // Более тонкая настройка отображения helpers для пользователя.
-                   environment: .prod) {
-           // Callback возвращается после конфигурации SDK. В реальном приложении можно не раскрывать completion блок.
+                   environment: .prod) { error in
+            if let error {
+                //  Произошла ошибка на этапе инициализации SDK.
+                print(error.description)
+            } else {
+                // SDK инициализировалось без ошибок.
+            }
         }
         
         return true

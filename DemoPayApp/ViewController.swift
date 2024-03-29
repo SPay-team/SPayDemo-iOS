@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     private lazy var sPayButton: SBPButton = {
         let view = SBPButton()
         view.tapAction = {
-            self.payWithSDK()
+            self.payWithBankInvoiceId()
         }
         return view
     }()
@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         
     }
     
-    func payWithSDK() {
+    func payWithBankInvoiceId() {
         
         let request = SBankInvoicePaymentRequest(merchantLogin: "", // Login партнера для работы с сервисами платежного шлюза
                                                  bankInvoiceId: "", // Уникальный номер (идентификатор) заказа в Платежном шлюзе Банка. Необходимо передавать значение sbolBankInvoiceId (передается в externalParams)
@@ -56,6 +56,56 @@ class ViewController: UIViewController {
                                                  apiKey: "") // Ключ клиента для работы с сервисами платежного шлюза через SDK
         
         SPay.payWithBankInvoiceId(with: self, paymentRequest: request) { state, info in
+            switch state {
+            case .success:
+                print("Получили success")
+            case .waiting:
+                print("Получили waiting")
+            case .error:
+                print("Получили error")
+            case .cancel:
+                print("Получили cancel")
+            @unknown default:
+                print("Получили неизвестный стейт")
+            }
+        }
+    }
+    
+    func payWithoutRefresh() {
+        
+        let request = SBankInvoicePaymentRequest(merchantLogin: "", // Login партнера для работы с сервисами платежного шлюза
+                                                 bankInvoiceId: "", // Уникальный номер (идентификатор) заказа в Платежном шлюзе Банка. Необходимо передавать значение sbolBankInvoiceId (передается в externalParams)
+                                                 orderNumber: "", // Уникальный номер (идентификатор) заказа в системе Клиента
+
+                                                 redirectUri: "demopayappscheme://spay", // Адрес вашего приложения, по которому необходимо вернуть пользователя после аутентификации в СберБанк Онлайн (формат вашасхема://spay)
+                                                 apiKey: "") // Ключ клиента для работы с сервисами платежного шлюза через SDK
+        
+        SPay.payWithoutRefresh(with: self, paymentRequest: request) { state, info in
+            switch state {
+            case .success:
+                print("Получили success")
+            case .waiting:
+                print("Получили waiting")
+            case .error:
+                print("Получили error")
+            case .cancel:
+                print("Получили cancel")
+            @unknown default:
+                print("Получили неизвестный стейт")
+            }
+        }
+    }
+    
+    func payWithPartPay() {
+        
+        let request = SBankInvoicePaymentRequest(merchantLogin: "", // Login партнера для работы с сервисами платежного шлюза
+                                                 bankInvoiceId: "", // Уникальный номер (идентификатор) заказа в Платежном шлюзе Банка. Необходимо передавать значение sbolBankInvoiceId (передается в externalParams)
+                                                 orderNumber: "", // Уникальный номер (идентификатор) заказа в системе Клиента
+
+                                                 redirectUri: "demopayappscheme://spay", // Адрес вашего приложения, по которому необходимо вернуть пользователя после аутентификации в СберБанк Онлайн (формат вашасхема://spay)
+                                                 apiKey: "") // Ключ клиента для работы с сервисами платежного шлюза через SDK
+        
+        SPay.payWithPartPay(with: self, paymentRequest: request) { state, info in
             switch state {
             case .success:
                 print("Получили success")
